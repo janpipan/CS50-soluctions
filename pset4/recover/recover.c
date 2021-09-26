@@ -4,6 +4,8 @@
 
 typedef uint8_t BYTE;
 
+#define BLOCK_SIZE 512
+
 int main(int argc, char *argv[])
 {
     if (argc != 2)
@@ -25,9 +27,9 @@ int main(int argc, char *argv[])
     int signature[3] = {0xff, 0xd8, 0xff};
     int file_counter = 0;
     char out_file_name[9];
-    FILE *output_file;
+    FILE *output_file = NULL;
 
-    while (fread(buffer, sizeof(buffer), 1, file))
+    while (fread(buffer, sizeof(BYTE), BLOCK_SIZE, file))
     {
         int new_picture = 0;
         // if fourth byte's first bits are 1110
@@ -52,7 +54,10 @@ int main(int argc, char *argv[])
             }
         }
         // write block to outputfile
-        fwrite(buffer, sizeof(buffer), 1, output_file);
+        if (output_file != NULL)
+        {
+            fwrite(buffer, sizeof(BYTE), BLOCK_SIZE, output_file);
+        }
     }
 
     // close input and output file
