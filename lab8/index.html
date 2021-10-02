@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function(){
+                console.log("sometihng");
+                let buttons = document.getElementsByClassName('answers');
+                for (let i = 0; i < buttons.length; i++)
+                {
+                    buttons[i].onclick = function (){
+                        let value = buttons[i].value;
+                        if (value == '2')
+                        {
+                            buttons[i].style.backgroundColor = 'green';
+                            document.querySelector('#multipleAnswer').innerHTML = 'Correct';
+                        }
+                        else
+                        {
+                            buttons[i].style.backgroundColor = 'red';
+                            document.querySelector('#multipleAnswer').innerHTML = 'Incorrect';
+                        }
+                        console.log(buttons[i].value);
+                    }
+                }
+                document.querySelector('form').onsubmit = function(){
+                    let answer = document.querySelector('#planet').value;
+                    console.log(answer);
+                    if (answer.trimRigth().toLowerCase() == "jupiter")
+                    {
+                        document.querySelector('#planet').style.backgroundColor = 'green';
+                        document.querySelector('#freeAnswer').innerHTML = 'Correct';
+                    }
+                    else
+                    {
+                        document.querySelector('#planet').style.backgroundColor = 'red';
+                        document.querySelector('#freeAnswer').innerHTML = 'Incorrect';
+                    }
+                    return false;
+                }
+            });
+
+
+        </script>
+
+    </head>
+    <body>
+
+        <div class="jumbotron">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>Which country held the 2012 Summer Olympics?</h3>
+                <p id="multipleAnswer"></p>
+                <button class="answers" value="1">Ireland</button>
+                <button class="answers" value="2">United Kingdom</button>
+                <button class="answers" value="3">China</button>
+                <button class="answers" value="4">Greece</button>
+
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>Which planet in our solar system is the largest?</h3>
+                <p id="freeAnswer"></p>
+                <form>
+                    <input type="text" id="planet">
+                    <input type="submit">
+                </form>
+
+            </div>
+
+        </div>
+    </body>
+</html>
